@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-public enum AVAILABLE_LOCALES {
+public enum AVAILABLE_LOCALES  {
     DE(i18nHandler.get("language.de"), new Locale.Builder().setLanguage("de").build()), EN(i18nHandler.get("language.en"), new Locale.Builder().setLanguage("en").build());
 
     private final String displayName;

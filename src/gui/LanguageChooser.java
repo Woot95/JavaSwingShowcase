@@ -4,17 +4,20 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public class LanguageChooser extends JDialog {
+    private JFrame parent;
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
     private JComboBox<String> ComboBoxLanguageChooser;
     private AVAILABLE_LOCALES selectedLocale = null;
 
-    public LanguageChooser() {
+    public LanguageChooser(JFrame parent) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
         setSize(300, 150);
+
+        this.parent = parent;
 
         for (AVAILABLE_LOCALES availableLocales : AVAILABLE_LOCALES.getAll()) {
             ComboBoxLanguageChooser.addItem(availableLocales.getDisplayName() + " / " + availableLocales.getLocale());
@@ -70,9 +73,9 @@ public class LanguageChooser extends JDialog {
     }
 
     public static void main(String[] args) {
-        LanguageChooser dialog = new LanguageChooser();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
+        //LanguageChooser dialog = new LanguageChooser();
+        //dialog.pack();
+        //dialog.setVisible(true);
+        //System.exit(0);
     }
 }
