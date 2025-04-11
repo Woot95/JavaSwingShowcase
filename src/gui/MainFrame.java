@@ -1,36 +1,43 @@
 package gui;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame {
-    private JButton ButtonStartRadioButtonTest;
-    private JButton button2;
-    private JButton button3;
-    private JButton button4;
 
-    private JMenu menuFile;
-    private JMenuItem menuItemChangeLanguage;
-
+    //region private class variables
+    private JButton           ButtonStartRadioButtonTest;
+    private JButton           button2;
+    private JButton           button3;
+    private JButton           button4;
+    private JMenu             menuFile;
+    private JMenuItem         menuItemChangeLanguage;
     private AVAILABLE_LOCALES currentSelectedLanguage;
+    //endregion
 
+    //region constructors
     public MainFrame() {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, 500);
         this.setVisible(true);
 
-        //init menu bar
-        this.setJMenuBar(createMenuBar());
-
         this.currentSelectedLanguage = AVAILABLE_LOCALES.DE;
+
+        this.setJMenuBar(createMenuBar());
 
         this.updateAfterLanguageChange(this.currentSelectedLanguage);
 
         ButtonStartRadioButtonTest.addActionListener(createRadioButtonTestActionListener());
     }
+    //endregion
 
+    //region event handler
     private ActionListener createRadioButtonTestActionListener() {
         return new ActionListener() {
             @Override
@@ -45,30 +52,32 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LanguageChooser languageChooser = new LanguageChooser(MainFrame.this);
-                AVAILABLE_LOCALES selected_local =languageChooser.showDialog();
-                if (selected_local != null){
+                AVAILABLE_LOCALES selected_local = languageChooser.showDialog();
+                if (selected_local != null) {
                     MainFrame.this.setCurrentSelectedLanguage(selected_local);
                 }
             }
         };
     }
+    //endregion
 
+    //region getter
+    public AVAILABLE_LOCALES getCurrentSelectedLanguage() {
+        return currentSelectedLanguage;
+    }
+    //endregion
 
+    //region setter
     public void setCurrentSelectedLanguage(AVAILABLE_LOCALES currentSelectedLanguage) {
         this.currentSelectedLanguage = currentSelectedLanguage;
         updateAfterLanguageChange(this.currentSelectedLanguage);
     }
+    //endregion
 
-    public AVAILABLE_LOCALES getCurrentSelectedLanguage() {
-        return currentSelectedLanguage;
-    }
+    //region public methods
+    //endregion
 
-    private void updateAfterLanguageChange(AVAILABLE_LOCALES selectedLanguage){
-        i18nHandler.setLocale(this.currentSelectedLanguage);
-        this.updateTexts();
-        this.updateMnemonics(selectedLanguage);
-    }
-
+    //region private methods
 
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -85,6 +94,13 @@ public class MainFrame extends JFrame {
         return menuBar;
     }
 
+    private void updateAfterLanguageChange(AVAILABLE_LOCALES selectedLanguage) {
+        i18nHandler.setLocale(this.currentSelectedLanguage);
+        this.updateTexts();
+        this.updateMnemonics(selectedLanguage);
+    }
+
+
     private void updateTexts() {
         this.setTitle(i18nHandler.get("mainframe.title"));
         this.menuFile.setText(i18nHandler.get("mainframe.menu.File"));
@@ -92,7 +108,7 @@ public class MainFrame extends JFrame {
     }
 
     private void updateMnemonics(AVAILABLE_LOCALES selectedLocal) {
-        switch (selectedLocal){
+        switch (selectedLocal) {
             case DE:
                 this.menuItemChangeLanguage.setMnemonic('S');
                 break;
@@ -100,6 +116,7 @@ public class MainFrame extends JFrame {
                 this.menuItemChangeLanguage.setMnemonic('L');
                 break;
         }
-
     }
+    //endregion
+
 }
