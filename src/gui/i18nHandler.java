@@ -1,24 +1,22 @@
 package gui;
 
 import java.util.Locale;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class i18nHandler {
-    private static ResourceBundle bundle = loadBundle();
-
+    //Statische Klasse, enthaelt ausschliesslich statische Methoden
 
     public static void setLocale(Locale locale) {
         Locale.setDefault(locale);
-        bundle = loadBundle();
+        loadBundle();
     }
     public static void setLocale(AVAILABLE_LOCALES locale) {
         Locale.setDefault(locale.getLocale());
-        bundle = loadBundle();
+        loadBundle();
     }
 
     public static String get(String key) {
-        return bundle.getString(key);
+        return loadBundle().getString(key);
     }
 
     private static ResourceBundle loadBundle() {
